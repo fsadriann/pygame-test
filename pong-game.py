@@ -61,6 +61,18 @@ while not game_over:
     if ball_y >590 or ball_y <10:
          ball_speed_y *= -1
 
+    if player1_y >510:
+         player1_y = 510
+
+    if player1_y <10:
+         player1_y = 10
+
+    if player2_y >510:
+         player2_y = 510
+    
+    if player2_y <10:
+         player2_y = 10
+
     # revisa si la pelota sale de la derecha
     if ball_x > 800:
          ball_x = 400
@@ -89,7 +101,12 @@ while not game_over:
     #zona de dibujo
     player1 = pygame.draw.rect(screen, white, (player1_x, player1_y, player_width,player_height))
     player2 = pygame.draw.rect(screen, white, (player2_x, player2_y, player_width,player_height))
-    pygame.draw.circle(screen, white, (ball_x, ball_y), 10)
+    ball = pygame.draw.circle(screen, white, (ball_x, ball_y), 10)
+
+    # colisiones
+    if ball.colliderect(player1) or ball.colliderect(player2):
+         ball_speed_x *= -1
+
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
