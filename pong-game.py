@@ -33,8 +33,58 @@ while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
-    #zona logica
+        #zona logica
+        if event.type == pygame.KEYDOWN:
+            #jugador 1
+            if event.key == pygame.K_w:
+                player1_speed = -3
+            if event.key == pygame.K_s:
+                player1_speed = 3
+            #jugador 2
+            if event.key == pygame.K_UP:
+                player2_speed = -3
+            if event.key == pygame.K_DOWN:
+                player2_speed = 3
 
+        if event.type == pygame.KEYUP:
+                    #jugador 1
+                    if event.key == pygame.K_w:
+                        player1_speed = 0
+                    if event.key == pygame.K_s:
+                        player1_speed = 0
+                    #jugador 2
+                    if event.key == pygame.K_UP:
+                        player2_speed = 0
+                    if event.key == pygame.K_DOWN:
+                        player2_speed = 0
+
+    if ball_y >590 or ball_y <10:
+         ball_speed_y *= -1
+
+    # revisa si la pelota sale de la derecha
+    if ball_x > 800:
+         ball_x = 400
+         ball_y =300
+         #si sale se invierte la direccion
+         ball_speed_x *= -1
+         ball_speed_y *= -1
+
+    # revisa si la pelota sale de la izquierda
+    if ball_x < 0:
+         ball_x = 400
+         ball_y =300
+         #si sale se invierte la direccion
+         ball_speed_x *= -1
+         ball_speed_y *= -1
+
+    # modificar coordenadas para mover jugadores / pelota
+    player1_y += player1_speed
+    player2_y += player2_speed
+
+    #mov pelota
+    ball_x += ball_speed_x
+    ball_y += ball_speed_y
+    
     screen.fill(black)
     #zona de dibujo
     player1 = pygame.draw.rect(screen, white, (player1_x, player1_y, player_width,player_height))
